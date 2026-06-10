@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spectrus Contact</title>
+
+<style>
+:root {
+    --bg: #0f1117;
+    --card: #171923;
+    --text: #ffffff;
+    --muted: #a0a8b8;
+    --accent: #ad69ff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 650px;
+}
+
+.lang-switch {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.lang-btn {
+    background: var(--card);
+    color: var(--text);
+    border: 1px solid #2a2f3c;
+    border-radius: 8px;
+    padding: 8px 14px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.lang-btn:hover {
+    border-color: var(--accent);
+}
+
+.card {
+    background: var(--card);
+    border: 1px solid #232938;
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: center;
+}
+
+.logo svg {
+    width: 200px;
+    height: auto;
+    display: block;
+    margin: 0 auto 20px;
+}
+
+.message {
+    font-size: 20px;
+    line-height: 1.6;
+}
+
+.email {
+    display: inline-block;
+    margin-top: 16px;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+    word-break: break-word;
+}
+
+.email:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+    .card {
+        padding: 30px 20px;
+    }
+
+    .message {
+        font-size: 18px;
+    }
+
+    .logo svg {
+        width: 160px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="lang-switch">
+        <button class="lang-btn" onclick="setLang('ru')">RU</button>
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
+    </div>
+
+    <div class="card">
+
+        <div class="logo">
+            <svg width="375" height="143" viewBox="0 0 375 143" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M38.8639 93.7924L0.863892 0.792358L90.8639 28.7924L137.864 65.7924L159.864 123.792L38.8639 93.7924Z" fill="#AD69FF" stroke="#AD69FF"/>
+            <path d="M335.864 111.792L373.864 18.7924L283.864 46.7924L236.864 83.7924L214.864 141.792L335.864 111.792Z" fill="#AD69FF" stroke="#AD69FF"/>
+            </svg>
+        </div>
+
+        <div id="text" class="message">
+            Есть вопросы? Возникла проблема? Обращайтесь:
+        </div>
+
+        <a class="email" href="mailto:spectruscontact@protonmail.com">
+            spectruscontact@protonmail.com
+        </a>
+
+    </div>
+
+</div>
+
+<script>
+const translations = {
+    ru: "Есть вопросы? Возникла проблема? Обращайтесь:",
+    en: "Have questions? Encountered a problem? Contact:"
+};
+
+function setLang(lang) {
+    document.documentElement.lang = lang;
+    document.getElementById("text").textContent = translations[lang];
+}
+</script>
+
+</body>
+</html>

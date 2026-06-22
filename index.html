@@ -7,144 +7,441 @@
 
 <style>
 :root {
-    --bg: #0f1117;
-    --card: #171923;
-    --text: #ffffff;
-    --muted: #a0a8b8;
+    --bg: #07080e;
+    --bg-gradient: radial-gradient(circle at 50% -20%, #1e1135 0%, #07080e 70%);
+    --card: rgba(18, 20, 29, 0.7);
+    --card-hover: rgba(26, 29, 43, 0.85);
+    --border: rgba(173, 105, 255, 0.15);
+    --border-hover: rgba(173, 105, 255, 0.4);
+    --text: #f3f4f6;
+    --muted: #9ca3af;
     --accent: #ad69ff;
+    --accent-glow: rgba(173, 105, 255, 0.3);
+    --tg-color: #24A1DE;
+    --tg-glow: rgba(36, 161, 222, 0.3);
+    --success: #10b981;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    transition: all 0.25s ease;
 }
 
 body {
     min-height: 100vh;
     background: var(--bg);
+    background-image: var(--bg-gradient);
     color: var(--text);
-    font-family: Arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    padding: 24px;
+    overflow-x: hidden;
 }
 
-.container {
+.wrapper {
     width: 100%;
-    max-width: 650px;
+    max-width: 680px;
+    margin: auto;
+}
+
+header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 32px;
 }
 
 .lang-switch {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 4px;
+    border-radius: 12px;
     display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-bottom: 16px;
+    gap: 4px;
 }
 
 .lang-btn {
-    background: var(--card);
-    color: var(--text);
-    border: 1px solid #2a2f3c;
+    background: transparent;
+    color: var(--muted);
+    border: none;
     border-radius: 8px;
-    padding: 8px 14px;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 600;
     cursor: pointer;
-    transition: 0.2s;
+    letter-spacing: 0.5px;
 }
 
 .lang-btn:hover {
-    border-color: var(--accent);
+    color: var(--text);
 }
 
-.card {
+.lang-btn.active {
+    background: var(--accent);
+    color: #ffffff;
+    box-shadow: 0 4px 12px var(--accent-glow);
+}
+
+.main-card {
     background: var(--card);
-    border: 1px solid #232938;
-    border-radius: 20px;
-    padding: 40px 30px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 48px 40px;
     text-align: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    position: relative;
 }
 
-.logo svg {
+.main-card:hover {
+    border-color: var(--border-hover);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(173, 105, 255, 0.05);
+}
+
+.logo-container {
+    margin-bottom: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-img {
     width: 200px;
     height: auto;
     display: block;
-    margin: 0 auto 20px;
+    filter: drop-shadow(0 0 15px var(--accent-glow));
+    animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+h1 {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .message {
-    font-size: 20px;
+    font-size: 16px;
     line-height: 1.6;
+    color: var(--muted);
+    max-width: 480px;
+    margin: 0 auto 32px auto;
 }
 
-.email {
-    display: inline-block;
-    margin-top: 16px;
-    color: var(--accent);
+.email-box {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 0;
+}
+
+.email-box:hover {
+    border-color: rgba(173, 105, 255, 0.3);
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.email-link {
+    color: var(--text);
     text-decoration: none;
+    font-size: 16px;
     font-weight: 600;
-    word-break: break-word;
+    letter-spacing: 0.5px;
+    word-break: break-all;
+    text-align: left;
 }
 
-.email:hover {
-    text-decoration: underline;
+.email-link:hover {
+    color: var(--accent);
+}
+
+.copy-btn {
+    background: rgba(173, 105, 255, 0.1);
+    border: 1px solid rgba(173, 105, 255, 0.2);
+    color: var(--accent);
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.copy-btn:hover {
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 4px 12px var(--accent-glow);
+}
+
+/* Элемент ИЛИ */
+.or-divider {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.25);
+    margin: 16px 0;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Кнопка Telegram */
+.tg-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #24A1DE 0%, #1e83b5 100%);
+    color: #ffffff;
+    text-decoration: none;
+    padding: 16px 24px;
+    border-radius: 16px;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    box-shadow: 0 4px 15px var(--tg-glow);
+    margin-bottom: 36px;
+}
+
+.tg-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px var(--tg-glow);
+    filter: brightness(1.1);
+}
+
+.tg-btn:active {
+    transform: translateY(0);
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    text-align: left;
+}
+
+.feature-item {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 16px;
+}
+
+.feature-item:hover {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.feature-icon {
+    color: var(--accent);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.feature-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--text);
+}
+
+.feature-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.4;
+}
+
+footer {
+    margin-top: 40px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.2);
+    letter-spacing: 0.5px;
+}
+
+/* Toast Уведомление */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: #10b981;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 100;
+}
+
+.toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
 }
 
 @media (max-width: 600px) {
-    .card {
-        padding: 30px 20px;
-    }
-
-    .message {
-        font-size: 18px;
-    }
-
-    .logo svg {
-        width: 160px;
-    }
+    body { padding: 16px; }
+    .main-card { padding: 32px 20px; }
+    h1 { font-size: 24px; }
+    .logo-img { width: 160px; }
+    .features-grid { grid-template-columns: 1fr; }
+    .email-box { flex-direction: column; text-align: center; padding: 20px; }
+    .email-link { text-align: center; }
+    .copy-btn { width: 100%; }
+    .tg-btn { padding: 14px 20px; font-size: 15px; }
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="wrapper">
+    <header>
+        <div class="lang-switch">
+            <button id="btn-ru" class="lang-btn active" onclick="setLang('ru')">RU</button>
+            <button id="btn-en" class="lang-btn" onclick="setLang('en')">EN</button>
+        </div>
+    </header>
 
-    <div class="lang-switch">
-        <button class="lang-btn" onclick="setLang('ru')">RU</button>
-        <button class="lang-btn" onclick="setLang('en')">EN</button>
-    </div>
-
-    <div class="card">
-
-        <div class="logo">
-            <svg width="375" height="143" viewBox="0 0 375 143" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M38.8639 93.7924L0.863892 0.792358L90.8639 28.7924L137.864 65.7924L159.864 123.792L38.8639 93.7924Z" fill="#AD69FF" stroke="#AD69FF"/>
-            <path d="M335.864 111.792L373.864 18.7924L283.864 46.7924L236.864 83.7924L214.864 141.792L335.864 111.792Z" fill="#AD69FF" stroke="#AD69FF"/>
-            </svg>
+    <main class="main-card">
+        <div class="logo-container">
+            <!-- Подключение файла logo.svg из папки проекта -->
+            <img src="logo.svg" class="logo-img" alt="Spectrus Logo">
         </div>
 
+        <h1 id="title">Служба поддержки Spectrus</h1>
         <div id="text" class="message">
-            Есть вопросы? Возникла проблема? Обращайтесь:
+            Есть вопросы или возникла техническая проблема? Мы на связи. Свяжитесь с нами по почте или через Telegram, и наша команда поможет вам в ближайшее время.
         </div>
 
-        <a class="email" href="mailto:spectruscontact@protonmail.com">
-            spectruscontact@protonmail.com
+        <!-- Способ связи 1: Email -->
+        <div class="email-box">
+            <a class="email-link" href="mailto:spectruscontact@protonmail.com">
+                spectruscontact@protonmail.com
+            </a>
+            <button class="copy-btn" onclick="copyEmail()" id="copy-btn-text" title="Копировать адрес">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+        </div>
+
+        <div class="or-divider" id="or-text">или</div>
+
+        <!-- Способ связи 2: Telegram -->
+        <a class="tg-btn" href="https://t.me/SpectrusVPN?direct" target="_blank" id="tg-btn-text">
+            <!-- Иконка Telegram (SVG) -->
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21.9221 2.92212C21.7136 2.71358 21.4116 2.62723 21.1219 2.69305L2.37188 6.94305C2.06223 7.01321 1.80801 7.22851 1.70529 7.52184C1.60258 7.81516 1.66699 8.14286 1.87413 8.3807L7.3323 14.6508L10.3705 21.7402C10.4907 22.0205 10.751 22.212 11.0544 22.2435C11.0894 22.2471 11.1245 22.2489 11.1596 22.2489C11.433 22.2489 11.6896 22.1032 11.8344 21.8654L22.0844 5.01542C22.2415 4.75736 22.2155 4.43265 22.0181 4.20235L21.9221 2.92212ZM8.4357 13.5643L18.0645 5.86127L10.6387 14.7314L8.4357 13.5643Z" fill="currentColor"/>
+            </svg>
+            Написать нам в Telegram
         </a>
 
-    </div>
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                </div>
+                <div class="feature-title" id="f1-title">Сквозное шифрование</div>
+                <div class="feature-desc" id="f1-desc">Ваши обращения через ProtonMail полностью защищены и конфиденциальны.</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                </div>
+                <div class="feature-title" id="f2-title">Быстрая обработка</div>
+                <div class="feature-desc" id="f2-desc">Команда поддержки рассматривает все входящие тикеты в течение 24 часов.</div>
+            </div>
+        </div>
+    </main>
 
+    <div style="text-align: center;">
+        <footer>&copy; 2026 Spectrus. All rights reserved.</footer>
+    </div>
 </div>
+
+<div id="toast" class="toast">Адрес скопирован!</div>
 
 <script>
 const translations = {
-    ru: "Есть вопросы? Возникла проблема? Обращайтесь:",
-    en: "Have questions? Encountered a problem? Contact:"
+    ru: {
+        title: "Служба поддержки Spectrus",
+        text: "Есть вопросы или возникла техническая проблема? Мы на связи. Свяжитесь с нами по почте или через Telegram, и наша команда поможет вам в ближайшее время.",
+        orText: "или",
+        tgBtn: "Написать нам в Telegram",
+        f1Title: "Сквозное шифрование",
+        f1Desc: "Ваши обращения через ProtonMail полностью защищены и конфиденциальны.",
+        f2Title: "Быстрая обработка",
+        f2Desc: "Команда поддержки рассматривает все входящие тикеты в течение 24 часов.",
+        toast: "Адрес скопирован!",
+        copyHint: "Копировать адрес"
+    },
+    en: {
+        title: "Spectrus Support Desk",
+        text: "Have questions or encountered a technical issue? We are here to help. Reach out to our secure email or via Telegram, and our team will get back to you shortly.",
+        orText: "or",
+        tgBtn: "Message us on Telegram",
+        f1Title: "End-to-End Encryption",
+        f1Desc: "Your inquiries via ProtonMail are fully protected and kept confidential.",
+        f2Title: "Fast Processing",
+        f2Desc: "Our support team reviews and responds to all incoming tickets within 24 hours.",
+        toast: "Email copied to clipboard!",
+        copyHint: "Copy email address"
+    }
 };
 
+let currentLang = 'ru';
+
 function setLang(lang) {
+    currentLang = lang;
     document.documentElement.lang = lang;
-    document.getElementById("text").textContent = translations[lang];
+    
+    document.getElementById("btn-ru").classList.toggle("active", lang === 'ru');
+    document.getElementById("btn-en").classList.toggle("active", lang === 'en');
+    
+    document.getElementById("title").textContent = translations[lang].title;
+    document.getElementById("text").textContent = translations[lang].text;
+    document.getElementById("or-text").textContent = translations[lang].orText;
+    document.getElementById("tg-btn-text").innerHTML = `
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21.9221 2.92212C21.7136 2.71358 21.4116 2.62723 21.1219 2.69305L2.37188 6.94305C2.06223 7.01321 1.80801 7.22851 1.70529 7.52184C1.60258 7.81516 1.66699 8.14286 1.87413 8.3807L7.3323 14.6508L10.3705 21.7402C10.4907 22.0205 10.751 22.212 11.0544 22.2435C11.0894 22.2471 11.1245 22.2489 11.1596 22.2489C11.433 22.2489 11.6896 22.1032 11.8344 21.8654L22.0844 5.01542C22.2415 4.75736 22.2155 4.43265 22.0181 4.20235L21.9221 2.92212ZM8.4357 13.5643L18.0645 5.86127L10.6387 14.7314L8.4357 13.5643Z" fill="currentColor"/>
+        </svg>
+        ${translations[lang].tgBtn}
+    `;
+    document.getElementById("f1-title").textContent = translations[lang].f1Title;
+    document.getElementById("f1-desc").textContent = translations[lang].f1Desc;
+    document.getElementById("f2-title").textContent = translations[lang].f2Title;
+    document.getElementById("f2-desc").textContent = translations[lang].f2Desc;
+    document.getElementById("copy-btn-text").setAttribute("title", translations[lang].copyHint);
+}
+
+function copyEmail() {
+    const email = "spectruscontact@protonmail.com";
+    navigator.clipboard.writeText(email).then(() => {
+        const toast = document.getElementById("toast");
+        toast.textContent = translations[currentLang].toast;
+        toast.classList.add("show");
+        
+        setTimeout(() => {
+            toast.classList.remove("show");
+        }, 2500);
+    });
 }
 </script>
 
